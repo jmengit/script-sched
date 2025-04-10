@@ -8,20 +8,20 @@ echo "Configuring timezone to ${TZ}"
 ln -snf /usr/share/zoneinfo/${TZ} /etc/localtime
 echo "${TZ}" > /etc/timezone
 
-# ---------------------------
-# 2. Set Up User for File Permissions (if PUID and PGID provided)
-# ---------------------------
-if [ -n "${PUID}" ] && [ -n "${PGID}" ]; then
-    echo "Setting up user 'appuser' with UID=${PUID} and GID=${PGID}"
-    # Create a group named "appgroup" with the provided PGID.
-    addgroup -g "${PGID}" appgroup || true
-    # Create a user named "appuser" with the provided PUID and add to appgroup.
-    adduser -D -u "${PUID}" -G appgroup appuser || true
-    # Ensure /scripts is owned by appuser so files touched here have the desired permissions.
-    chown -R appuser:appgroup /scripts
-else
-    echo "PUID or PGID not provided; running as root."
-fi
+# # ---------------------------
+# # 2. Set Up User for File Permissions (if PUID and PGID provided)
+# # ---------------------------
+# if [ -n "${PUID}" ] && [ -n "${PGID}" ]; then
+#     echo "Setting up user 'appuser' with UID=${PUID} and GID=${PGID}"
+#     # Create a group named "appgroup" with the provided PGID.
+#     addgroup -g "${PGID}" appgroup || true
+#     # Create a user named "appuser" with the provided PUID and add to appgroup.
+#     adduser -D -u "${PUID}" -G appgroup appuser || true
+#     # Ensure /scripts is owned by appuser so files touched here have the desired permissions.
+#     chown -R appuser:appgroup /scripts
+# else
+#     echo "PUID or PGID not provided; running as root."
+# fi
 
 # ---------------------------
 # 3. Execute Startup Scripts from /scripts
