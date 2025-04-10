@@ -13,9 +13,7 @@ RUN apk update && \
 
 # Set default environment variables. These can be overridden at runtime.
 ENV CRON_SCHEDULE="* * * * *" \
-    TZ="UTC" \
-    PUID=1000 \
-    PGID=1000
+    TZ="UTC"
 
 # Copy the entrypoint script into the image and make it executable
 COPY entrypoint.sh /entrypoint.sh
